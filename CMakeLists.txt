@@ -12,6 +12,8 @@ if("${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}" VERSION_GREATER 2.6)
   endif()
 endif()
 
+set(CMAKE_CURRENT_BINARY_DIR "${PROJECT_BINARY_DIR}/bin")
+
 find_package(CGAL COMPONENTS Qt4)
 
 include(${CGAL_USE_FILE})
@@ -38,20 +40,18 @@ include(${QT_USE_FILE})
 # The "Delaunay" demo: Delaunay_triangulation_2
 #--------------------------------
 # UI files (Qt Designer files)
-#qt4_wrap_ui( DT_UI_FILES Delaunay_triangulation_2.ui )
+qt4_wrap_ui( DT_UI_FILES src/Delaunay_triangulation_2.ui )
 
 # qrc files (resources files, that contain icons, at least)
-#qt4_add_resources ( DT_RESOURCE_FILES ./Delaunay_triangulation_2.qrc )
+qt4_add_resources ( DT_RESOURCE_FILES src/Delaunay_triangulation_2.qrc )
 
 # use the Qt MOC preprocessor on classes that derives from QObject
-#qt4_generate_moc( "Delaunay_triangulation_2.cpp" "${CMAKE_CURRENT_BINARY_DIR}/Delaunay_triangulation_2.moc" )
-#QT4_WRAP_CPP(Delaunay_triangulation_2_MOC "Delaunay_triangulation_2.cpp" OPTIONS "-DBOOST_TT_HAS_OPERATOR_HPP_INCLUDED")
+qt4_generate_moc( "src/Delaunay_triangulation_2.cpp" "${CMAKE_CURRENT_BINARY_DIR}/Delaunay_triangulation_2.moc" )
 
 # The executable itself.
-#add_executable  ( Delaunay_triangulation_2 Delaunay_triangulation_2.cpp Delaunay_triangulation_2.moc ${DT_UI_FILES} ${DT_RESOURCE_FILES} )
-add_executable  ( voisins src/voisins.cpp )
+add_executable  ( voisins src/Delaunay_triangulation_2.cpp ${CMAKE_CURRENT_BINARY_DIR}/Delaunay_triangulation_2.moc ${DT_UI_FILES} ${DT_RESOURCE_FILES} )
 
-add_to_cached_list( CGAL_EXECUTABLE_TARGETS Delaunay_triangulation_2 )
+add_to_cached_list( CGAL_EXECUTABLE_TARGETS voisins )
 
 # Link with Qt libraries
 target_link_libraries( voisins ${QT_LIBRARIES} )
@@ -61,6 +61,6 @@ target_link_libraries( voisins ${CGAL_LIBRARIES} ${CGAL_3RD_PARTY_LIBRARIES})
 
 else()
 
-  message(STATUS "NOTICE: This project requires CGAL and Qt4, and will not be compiled.")
+  message(STATUS "NOTICE: This demo requires CGAL and Qt4, and will not be compiled.")
 
 endif()
