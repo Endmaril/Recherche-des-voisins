@@ -5,6 +5,10 @@
     <file>icons/triangulation.png</file>
     <file>icons/circumcenter.png</file>
     <file>icons/locate.png</file>
+    <file>icons/inputPointRed.png</file>
+    <file>icons/inputPointBlue.png</file>
+    <file>icons/inputPointGreen.png</file>
+    <file>icons/inputPointBlack.png</file>
   </qresource>
   <qresource prefix="/cgal/help" >
     <file>about_Delaunay_triangulation_2.html</file>

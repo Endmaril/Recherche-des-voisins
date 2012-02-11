@@ -62,11 +62,10 @@
    <attribute name="toolBarBreak" >
     <bool>false</bool>
    </attribute>
-   <addaction name="actionInsertPoint" />
-   <addaction name="actionMovingPoint" />
-   <addaction name="actionCircumcenter" />
-   <addaction name="actionLocate" />
-   <addaction name="actionShowConflictZone" />
+   <addaction name="actionSetColorGreen" />
+   <addaction name="actionSetColorRed" />
+   <addaction name="actionSetColorBlue" />
+   <addaction name="actionSetColorBlack" />
    <addaction name="separator" />
    <addaction name="actionShowDelaunay" />
    <addaction name="actionShowVoronoi" />
@@ -103,11 +102,10 @@
     <property name="title" >
      <string>&amp;Tools</string>
     </property>
-    <addaction name="actionInsertPoint" />
-    <addaction name="actionMovingPoint" />
-    <addaction name="actionCircumcenter" />
-    <addaction name="actionLocate" />
-    <addaction name="actionShowConflictZone" />
+    <addaction name="actionSetColorGreen" />
+    <addaction name="actionSetColorRed" />
+    <addaction name="actionSetColorBlue" />
+    <addaction name="actionSetColorBlack" />
     <addaction name="separator" />
     <addaction name="actionShowDelaunay" />
     <addaction name="actionShowVoronoi" />
@@ -144,28 +142,28 @@
     <string>Ctrl+I</string>
    </property>
   </action>
-  <action name="actionMovingPoint" >
+  <action name="actionSetColorRed" >
    <property name="checkable" >
     <bool>true</bool>
    </property>
    <property name="icon" >
     <iconset resource="Delaunay_triangulation_2.qrc" >
-     <normaloff>:/cgal/Actions/icons/moving_point.png</normaloff>:/cgal/Actions/icons/moving_point.png</iconset>
+     <normaloff>:/cgal/Actions/icons/inputPointRed.png</normaloff>:/cgal/Actions/icons/inputPointRed.png</iconset>
    </property>
    <property name="text" >
-    <string>&amp;Simulate insertion</string>
+    <string>&amp;set color to red</string>
    </property>
    <property name="toolTip" >
-    <string comment="The comment" >Simulate Insertion</string>
+    <string comment="The comment" >set color to red</string>
    </property>
    <property name="statusTip" >
-    <string comment="and its comment" >Move mouse with left button pressed to see where point would be inserted</string>
+    <string comment="and its comment" >Nothing to say</string>
    </property>
    <property name="whatsThis" >
     <string comment="what" >whats this</string>
    </property>
   </action>
-  <action name="actionInsertPoint" >
+  <action name="actionSetColorGreen" >
    <property name="checkable" >
     <bool>true</bool>
    </property>
@@ -173,17 +171,17 @@
     <bool>false</bool>
    </property>
    <property name="icon" >
-    <iconset resource="../icons/Input.qrc" >
-     <normaloff>:/cgal/Input/inputPoint.png</normaloff>:/cgal/Input/inputPoint.png</iconset>
+    <iconset resource="Delaunay_triangulation_2.qrc" >
+     <normaloff>:/cgal/Actions/icons/inputPointGreen.png</normaloff>:/cgal/Actions/icons/inputPointGreen.png</iconset>
    </property>
    <property name="text" >
-    <string>&amp;Insert Point</string>
+    <string>&amp;set color to green</string>
    </property>
    <property name="toolTip" >
-    <string>Insert Point</string>
+    <string>set color to green</string>
    </property>
    <property name="statusTip" >
-    <string>Left: Insert vtx</string>
+    <string>set color to green</string>
    </property>
   </action>
   <action name="actionClear" >
@@ -255,34 +253,34 @@
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="actionCircumcenter" >
+  <action name="actionSetColorBlue" >
    <property name="checkable" >
     <bool>true</bool>
    </property>
    <property name="icon" >
     <iconset resource="Delaunay_triangulation_2.qrc" >
-     <normaloff>:/cgal/Actions/icons/circumcenter.png</normaloff>:/cgal/Actions/icons/circumcenter.png</iconset>
+     <normaloff>:/cgal/Actions/icons/inputPointBlue.png</normaloff>:/cgal/Actions/icons/inputPointBlue.png</iconset>
    </property>
    <property name="text" >
-    <string>&amp;Circumcenter</string>
+    <string>&amp;set color to blue</string>
    </property>
    <property name="toolTip" >
-    <string>Draw circumcenter</string>
+    <string>Set color to blue</string>
    </property>
   </action>
-  <action name="actionLocate" >
+  <action name="actionSetColorBlack" >
    <property name="checkable" >
     <bool>true</bool>
    </property>
    <property name="icon" >
     <iconset resource="Delaunay_triangulation_2.qrc" >
-     <normaloff>:/cgal/Actions/icons/locate.png</normaloff>:/cgal/Actions/icons/locate.png</iconset>
+     <normaloff>:/cgal/Actions/icons/inputPointBlack.png</normaloff>:/cgal/Actions/icons/inputPointBlack.png</iconset>
    </property>
    <property name="text" >
-    <string>&amp;Locate</string>
+    <string>&amp;set color to black</string>
    </property>
    <property name="toolTip" >
-    <string>Draw locate</string>
+    <string>set color to black</string>
    </property>
   </action>
   <action name="actionRecenter" >
@@ -295,18 +293,6 @@
    </property>
    <property name="shortcut" >
     <string>Ctrl+R</string>
-   </property>
-  </action>
-  <action name="actionShowConflictZone" >
-   <property name="checkable" >
-    <bool>true</bool>
-   </property>
-   <property name="icon" >
-    <iconset resource="Delaunay_triangulation_2.qrc" >
-     <normaloff>:/cgal/Actions/icons/conflict_zone.png</normaloff>:/cgal/Actions/icons/conflict_zone.png</iconset>
-   </property>
-   <property name="text" >
-    <string>Show Conflict Zone</string>
    </property>
   </action>
  </widget>

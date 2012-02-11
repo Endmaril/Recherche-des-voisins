@@ -63,19 +63,19 @@ public slots:
 
   void processInput(CGAL::Object o);
 
-  void on_actionMovingPoint_toggled(bool checked);
+  void on_actionSetColorRed_toggled(bool checked);
 
   void on_actionShowConflictZone_toggled(bool checked);
 
-  void on_actionCircumcenter_toggled(bool checked);
+  void on_actionSetColorBlue_toggled(bool checked);
 
-  void on_actionLocate_toggled(bool checked);
+  void on_actionSetColorBlack_toggled(bool checked);
 
   void on_actionShowDelaunay_toggled(bool checked);
 
   void on_actionShowVoronoi_toggled(bool checked);
 
-  void on_actionInsertPoint_toggled(bool checked);
+  void on_actionSetColorGreen_toggled(bool checked);
   
   void on_actionInsertRandomPoints_triggered();
 
@@ -158,14 +158,18 @@ MainWindow::MainWindow()
 
   // We put mutually exclusive actions in an QActionGroup
   QActionGroup* ag = new QActionGroup(this);
-  ag->addAction(this->actionInsertPoint);
-  ag->addAction(this->actionMovingPoint);
-  ag->addAction(this->actionCircumcenter);
-  ag->addAction(this->actionLocate);
-  ag->addAction(this->actionShowConflictZone);
+  ag->addAction(this->actionSetColorGreen);
+  ag->addAction(this->actionSetColorRed);
+  ag->addAction(this->actionSetColorBlue);
+  ag->addAction(this->actionSetColorBlack);
 
+
+  QActionGroup* ag2 = new QActionGroup(this);
+  ag2->addAction(this->actionShowDelaunay);
+  ag2->addAction(this->actionShowVoronoi);
+  
   // Check two actions 
-  this->actionInsertPoint->setChecked(true);
+  this->actionSetColorGreen->setChecked(true);
   this->actionShowDelaunay->setChecked(true);
 
   //
@@ -213,7 +217,7 @@ MainWindow::processInput(CGAL::Object o)
  *  "on_<action_name>_<signal_name>"
  */
 void
-MainWindow::on_actionInsertPoint_toggled(bool checked)
+MainWindow::on_actionSetColorGreen_toggled(bool checked)
 {
   if(checked){
     scene.installEventFilter(pi);
@@ -226,7 +230,7 @@ MainWindow::on_actionInsertPoint_toggled(bool checked)
 
 
 void
-MainWindow::on_actionMovingPoint_toggled(bool checked)
+MainWindow::on_actionSetColorRed_toggled(bool checked)
 {
 
   if(checked){
@@ -249,7 +253,7 @@ MainWindow::on_actionShowConflictZone_toggled(bool checked)
 }
 
 void
-MainWindow::on_actionCircumcenter_toggled(bool checked)
+MainWindow::on_actionSetColorBlue_toggled(bool checked)
 {
   if(checked){
     scene.installEventFilter(tcc);
@@ -261,7 +265,7 @@ MainWindow::on_actionCircumcenter_toggled(bool checked)
 }
 
 void
-MainWindow::on_actionLocate_toggled(bool checked)
+MainWindow::on_actionSetColorBlack_toggled(bool checked)
 {
   if(checked){
     scene.installEventFilter(tl);
