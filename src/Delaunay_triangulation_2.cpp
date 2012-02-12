@@ -17,7 +17,7 @@
 // GraphicsView items and event filters (input classes)
 #include "TriangulationCircumcircle.h"
 #include "TriangulationLocate.h"
-#include "TriangulationMovingPoint.h"
+#include "NeighbourEnumeration.h"
 #include "TriangulationConflictZone.h"
 #include "TriangulationRemoveVertex.h"
 #include "TriangulationPointInputAndConflictZone.h"
@@ -53,7 +53,7 @@ private:
   CGAL::Qt::TriangulationGraphicsColoredItem<Delaunay> * dgi;
   CGAL::Qt::VoronoiGraphicsItem<Delaunay> * vgi;
 
-  CGAL::Qt::TriangulationMovingPoint<Delaunay> * mp;
+  CGAL::Qt::NeighbourEnumeration<Delaunay> * ne;
   CGAL::Qt::TriangulationConflictZone<Delaunay> * cz;
   CGAL::Qt::TriangulationRemoveVertex<Delaunay> * trv;
   CGAL::Qt::TriangulationPointInputAndConflictZone<Delaunay> * pi;
@@ -133,11 +133,11 @@ MainWindow::MainWindow()
   QObject::connect(pi, SIGNAL(generate(CGAL::Object)),
 		   this, SLOT(processInput(CGAL::Object)));
 
-  mp = new CGAL::Qt::TriangulationMovingPoint<Delaunay>(&dt, this);
-  // TriangulationMovingPoint<Delaunay> emits a modelChanged() signal each
+  ne = new CGAL::Qt::NeighbourEnumeration<Delaunay>(&dt, this);
+  // NeighbourEnumeration<Delaunay> emits a modelChanged() signal each
   // time the moving point moves.
   // The following connection is for the purpose of emitting changed().
-  QObject::connect(mp, SIGNAL(modelChanged()),
+  QObject::connect(ne, SIGNAL(modelChanged()),
 		   this, SIGNAL(changed()));
 
   trv = new CGAL::Qt::TriangulationRemoveVertex<Delaunay>(&dt, this);
@@ -279,9 +279,9 @@ void
 MainWindow::on_actionSelectPoint_toggled(bool checked)
 {
   if(checked) {
-      
+    scene.installEventFilter(ne);
   } else {
-      
+    scene.removeEventFilter(ne);
   }
   vgi->setVisible(checked);
 }

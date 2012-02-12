@@ -13,14 +13,14 @@ namespace CGAL {
 namespace Qt {
 
 template <typename DT>
-class TriangulationMovingPoint : public GraphicsViewInput
+class NeighbourEnumeration : public GraphicsViewInput
 {
 public:
   typedef typename DT::Face_handle Face_handle;
   typedef typename DT::Vertex_handle Vertex_handle;
   typedef typename DT::Point Point;
 
-  TriangulationMovingPoint(DT  * dt_, QObject* parent);
+  NeighbourEnumeration(DT  * dt_, QObject* parent);
 
 protected:
   void localize_and_insert_point(QPointF qt_point);
@@ -38,7 +38,7 @@ protected:
 
 
 template <typename T>
-TriangulationMovingPoint<T>::TriangulationMovingPoint(T * dt_,
+NeighbourEnumeration<T>::NeighbourEnumeration(T * dt_,
 							  QObject* parent)
   :  GraphicsViewInput(parent), dt(dt_), vh(), movePointToInsert(false), insertedPoint(false)
 {}
@@ -46,7 +46,7 @@ TriangulationMovingPoint<T>::TriangulationMovingPoint(T * dt_,
 
 template <typename T>
 void 
-TriangulationMovingPoint<T>::localize_and_insert_point(QPointF qt_point)
+NeighbourEnumeration<T>::localize_and_insert_point(QPointF qt_point)
 {
   Point p(qt_point.x(), qt_point.y());
   typename T::Locate_type lt;
@@ -66,8 +66,11 @@ TriangulationMovingPoint<T>::localize_and_insert_point(QPointF qt_point)
 
 template <typename T>
 void 
-TriangulationMovingPoint<T>::mousePressEvent(QGraphicsSceneMouseEvent *event)
+NeighbourEnumeration<T>::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+  typename T::Point p = typename T::Point(event->scenePos().x(), event->scenePos().y());
+  vh = dt->nearest_vertex(p);
+  /*
   if(dt->number_of_vertices() == 0 ||
      event->modifiers() != 0 ||
      event->button() != ::Qt::LeftButton) {
@@ -75,12 +78,13 @@ TriangulationMovingPoint<T>::mousePressEvent(QGraphicsSceneMouseEvent *event)
   }
   movePointToInsert = true;
   localize_and_insert_point(event->scenePos());
+  */
 }
 
 
 template <typename T>
 void 
-TriangulationMovingPoint<T>::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+NeighbourEnumeration<T>::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
 
   if(! movePointToInsert) return;
@@ -99,7 +103,7 @@ TriangulationMovingPoint<T>::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 template <typename T>
 void 
-TriangulationMovingPoint<T>::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+NeighbourEnumeration<T>::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
   if(! movePointToInsert ||
      event->button() != ::Qt::LeftButton) {
@@ -120,7 +124,7 @@ TriangulationMovingPoint<T>::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 template <typename T>
 bool 
-TriangulationMovingPoint<T>::eventFilter(QObject *obj, QEvent *event)
+NeighbourEnumeration<T>::eventFilter(QObject *obj, QEvent *event)
 {
   if (event->type() == QEvent::GraphicsSceneMousePress) {
     QGraphicsSceneMouseEvent *mouseEvent = static_cast<QGraphicsSceneMouseEvent *>(event);

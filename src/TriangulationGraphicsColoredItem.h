@@ -181,8 +181,8 @@ TriangulationGraphicsColoredItem<T>::paintVertices(QPainter *painter)
   if(visibleVertices()) {
     Converter<Geom_traits> convert;
 
-        QMatrix matrix = painter->matrix();
-        painter->resetMatrix();
+    QMatrix matrix = painter->matrix();
+    painter->resetMatrix();
     for(typename T::Finite_vertices_iterator it = t->finite_vertices_begin();
         it != t->finite_vertices_end();
         it++){
@@ -193,6 +193,7 @@ TriangulationGraphicsColoredItem<T>::paintVertices(QPainter *painter)
 
       QPointF point = matrix.map(convert(it->point()));
       painter->drawPoint(point);
+      painter->drawText(point, "42");
     }
   }
 }
@@ -275,10 +276,10 @@ TriangulationGraphicsColoredItem<T>::updateBoundingBox()
       ++vc;
     } while(vc != done);
   }
-  bounding_rect = QRectF(bb.xmin(),
-                         bb.ymin(),
-                         bb.xmax()-bb.xmin(),
-                         bb.ymax()-bb.ymin());
+  bounding_rect = QRectF(bb.xmin() - 20,
+                         bb.ymin() - 20,
+                         bb.xmax()-bb.xmin() + 20,
+                         bb.ymax()-bb.ymin() + 20);
 }
 
 
