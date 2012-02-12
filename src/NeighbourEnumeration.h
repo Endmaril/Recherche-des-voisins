@@ -7,7 +7,7 @@
 #include <QEvent>
 #include <list>
 
-
+#include "ClosestNeighbour.hh"
 
 namespace CGAL {
 namespace Qt {
@@ -70,6 +70,8 @@ NeighbourEnumeration<T>::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
   typename T::Point p = typename T::Point(event->scenePos().x(), event->scenePos().y());
   vh = dt->nearest_vertex(p);
+  ClosestNeighbour<DT> closestEnumaration(vh);
+  
   /*
   if(dt->number_of_vertices() == 0 ||
      event->modifiers() != 0 ||
