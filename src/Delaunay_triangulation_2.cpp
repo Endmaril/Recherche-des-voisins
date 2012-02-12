@@ -75,9 +75,9 @@ public slots:
 
   void on_actionSetColorBlack_toggled(bool checked);
 
-  void on_actionShowDelaunay_toggled(bool checked);
+  void on_actionInsertPoint_toggled(bool checked);
 
-  void on_actionShowVoronoi_toggled(bool checked);
+  void on_actionSelectPoint_toggled(bool checked);
 
   void on_actionSetColorGreen_toggled(bool checked);
   
@@ -170,12 +170,12 @@ MainWindow::MainWindow()
 
 
   QActionGroup* ag2 = new QActionGroup(this);
-  ag2->addAction(this->actionShowDelaunay);
-  ag2->addAction(this->actionShowVoronoi);
+  ag2->addAction(this->actionInsertPoint);
+  ag2->addAction(this->actionSelectPoint);
   
   // Check two actions 
   this->actionSetColorGreen->setChecked(true);
-  this->actionShowDelaunay->setChecked(true);
+  this->actionInsertPoint->setChecked(true);
 
   //
   // Setup the scene and the view
@@ -200,6 +200,7 @@ MainWindow::MainWindow()
   this->addRecentFiles(this->menuFile, this->actionQuit);
   connect(this, SIGNAL(openRecentFile(QString)),
 	  this, SLOT(open(QString)));
+  dgi->setVisibleEdges(true);
 }
 
 
@@ -226,28 +227,14 @@ MainWindow::processInput(CGAL::Object o)
 void
 MainWindow::on_actionSetColorGreen_toggled(bool checked)
 {
-  if(checked){
-    selectedColor = CGAL::GREEN;
-    scene.installEventFilter(pi);
-    scene.installEventFilter(trv);
-  } else {
-    scene.removeEventFilter(pi);
-    scene.removeEventFilter(trv);
-  }
+  selectedColor = CGAL::GREEN;
 }
 
 
 void
 MainWindow::on_actionSetColorRed_toggled(bool checked)
 {
-  if(checked){
-    selectedColor = CGAL::RED;
-    scene.installEventFilter(pi);
-    scene.installEventFilter(trv);
-  } else {
-    scene.removeEventFilter(pi);
-    scene.removeEventFilter(trv);
-  }
+  selectedColor = CGAL::RED;
 }
 
 
@@ -265,21 +252,20 @@ MainWindow::on_actionShowConflictZone_toggled(bool checked)
 void
 MainWindow::on_actionSetColorBlue_toggled(bool checked)
 {
-  if(checked){
-    selectedColor = CGAL::BLUE;
-    scene.installEventFilter(pi);
-    scene.installEventFilter(trv);
-  } else {  
-    scene.removeEventFilter(pi);
-    scene.removeEventFilter(trv);
-  }
+  selectedColor = CGAL::BLUE;
 }
 
 void
 MainWindow::on_actionSetColorBlack_toggled(bool checked)
 {
-  if(checked){
-    selectedColor = CGAL::BLACK;
+  selectedColor = CGAL::BLACK;
+}
+
+
+void
+MainWindow::on_actionInsertPoint_toggled(bool checked)
+{
+  if(checked) {
     scene.installEventFilter(pi);
     scene.installEventFilter(trv);
   } else {  
@@ -290,15 +276,13 @@ MainWindow::on_actionSetColorBlack_toggled(bool checked)
 
 
 void
-MainWindow::on_actionShowDelaunay_toggled(bool checked)
+MainWindow::on_actionSelectPoint_toggled(bool checked)
 {
-  dgi->setVisibleEdges(checked);
-}
-
-
-void
-MainWindow::on_actionShowVoronoi_toggled(bool checked)
-{
+  if(checked) {
+      
+  } else {
+      
+  }
   vgi->setVisible(checked);
 }
 

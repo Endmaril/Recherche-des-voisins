@@ -67,8 +67,8 @@
    <addaction name="actionSetColorBlue" />
    <addaction name="actionSetColorBlack" />
    <addaction name="separator" />
-   <addaction name="actionShowDelaunay" />
-   <addaction name="actionShowVoronoi" />
+   <addaction name="actionInsertPoint" />
+   <addaction name="actionSelectPoint" />
    <addaction name="separator" />
    <addaction name="actionRecenter" />
   </widget>
@@ -107,8 +107,8 @@
     <addaction name="actionSetColorBlue" />
     <addaction name="actionSetColorBlack" />
     <addaction name="separator" />
-    <addaction name="actionShowDelaunay" />
-    <addaction name="actionShowVoronoi" />
+    <addaction name="actionInsertPoint" />
+    <addaction name="actionSelectPoint" />
     <addaction name="separator" />
     <addaction name="actionRecenter" />
    </widget>
@@ -196,7 +196,7 @@
     <string>Ctrl+C</string>
    </property>
   </action>
-  <action name="actionShowVoronoi" >
+  <action name="actionSelectPoint" >
    <property name="checkable" >
     <bool>true</bool>
    </property>
@@ -208,13 +208,10 @@
      <normaloff>:/cgal/Triangulation_2/Voronoi_diagram_2.png</normaloff>:/cgal/Triangulation_2/Voronoi_diagram_2.png</iconset>
    </property>
    <property name="text" >
-    <string>Show &amp;Voronoi Diagram</string>
-   </property>
-   <property name="shortcut" >
-    <string>Ctrl+V</string>
+    <string>&amp;Select point</string>
    </property>
   </action>
-  <action name="actionShowDelaunay" >
+  <action name="actionInsertPoint" >
    <property name="checkable" >
     <bool>true</bool>
    </property>
@@ -223,10 +220,7 @@
      <normaloff>:/cgal/Actions/icons/triangulation.png</normaloff>:/cgal/Actions/icons/triangulation.png</iconset>
    </property>
    <property name="text" >
-    <string>Show &amp;Delaunay Triangulation</string>
-   </property>
-   <property name="shortcut" >
-    <string>Ctrl+D</string>
+    <string>&amp;Insert point</string>
    </property>
   </action>
   <action name="actionLoadPoints" >
