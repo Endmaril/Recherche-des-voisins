@@ -3,6 +3,7 @@
 // CGAL headers
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/Delaunay_triangulation_2.h>
+#include <CGAL/Triangulation_vertex_base_with_info_2.h>
 
 #include <CGAL/point_generators_2.h>
 
@@ -20,7 +21,7 @@
 #include "TriangulationConflictZone.h"
 #include "TriangulationRemoveVertex.h"
 #include "TriangulationPointInputAndConflictZone.h"
-#include <CGAL/Qt/TriangulationGraphicsItem.h>
+#include "TriangulationGraphicsColoredItem.h"
 #include <CGAL/Qt/VoronoiGraphicsItem.h>
 
 // for viewportsBbox
@@ -34,7 +35,9 @@ typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
 typedef K::Point_2 Point_2;
 typedef K::Iso_rectangle_2 Iso_rectangle_2;
 
-typedef CGAL::Delaunay_triangulation_2<K> Delaunay;
+typedef CGAL::Triangulation_vertex_base_with_info_2<CGAL::Color, K> Vb;
+typedef CGAL::Triangulation_data_structure_2<Vb> Tds;
+typedef CGAL::Delaunay_triangulation_2<K, Tds> Delaunay;
 
 class MainWindow :
   public CGAL::Qt::DemosMainWindow,
@@ -43,10 +46,11 @@ class MainWindow :
   Q_OBJECT
   
 private:  
+  CGAL::Color selectedColor;
   Delaunay dt; 
   QGraphicsScene scene;  
 
-  CGAL::Qt::TriangulationGraphicsItem<Delaunay> * dgi;
+  CGAL::Qt::TriangulationGraphicsColoredItem<Delaunay> * dgi;
   CGAL::Qt::VoronoiGraphicsItem<Delaunay> * vgi;
 
   CGAL::Qt::TriangulationMovingPoint<Delaunay> * mp;
@@ -95,14 +99,15 @@ signals:
 
 
 MainWindow::MainWindow()
-  : DemosMainWindow()
+  : DemosMainWindow(),
+    selectedColor(CGAL::GREEN)
 {
   setupUi(this);
 
   this->graphicsView->setAcceptDrops(false);
 
   // Add a GraphicItem for the Delaunay triangulation
-  dgi = new CGAL::Qt::TriangulationGraphicsItem<Delaunay>(&dt);
+  dgi = new CGAL::Qt::TriangulationGraphicsColoredItem<Delaunay>(&dt);
 
   QObject::connect(this, SIGNAL(changed()),
 		   dgi, SLOT(modelChanged()));
@@ -203,7 +208,9 @@ MainWindow::processInput(CGAL::Object o)
 {
   Point_2 p;
   if(CGAL::assign(p, o)){
-    dt.insert(p);
+    Delaunay::Vertex_handle vh = dt.insert(p);
+
+    vh->info() = selectedColor;
   }
   emit(changed());
 }
@@ -220,6 +227,7 @@ void
 MainWindow::on_actionSetColorGreen_toggled(bool checked)
 {
   if(checked){
+    selectedColor = CGAL::GREEN;
     scene.installEventFilter(pi);
     scene.installEventFilter(trv);
   } else {
@@ -232,11 +240,13 @@ MainWindow::on_actionSetColorGreen_toggled(bool checked)
 void
 MainWindow::on_actionSetColorRed_toggled(bool checked)
 {
-
   if(checked){
-    scene.installEventFilter(mp);
+    selectedColor = CGAL::RED;
+    scene.installEventFilter(pi);
+    scene.installEventFilter(trv);
   } else {
-    scene.removeEventFilter(mp);
+    scene.removeEventFilter(pi);
+    scene.removeEventFilter(trv);
   }
 }
 
@@ -256,11 +266,12 @@ void
 MainWindow::on_actionSetColorBlue_toggled(bool checked)
 {
   if(checked){
-    scene.installEventFilter(tcc);
-    tcc->show();
+    selectedColor = CGAL::BLUE;
+    scene.installEventFilter(pi);
+    scene.installEventFilter(trv);
   } else {  
-    scene.removeEventFilter(tcc);
-    tcc->hide();
+    scene.removeEventFilter(pi);
+    scene.removeEventFilter(trv);
   }
 }
 
@@ -268,11 +279,12 @@ void
 MainWindow::on_actionSetColorBlack_toggled(bool checked)
 {
   if(checked){
-    scene.installEventFilter(tl);
-    tl->show();
+    selectedColor = CGAL::BLACK;
+    scene.installEventFilter(pi);
+    scene.installEventFilter(trv);
   } else {  
-    scene.removeEventFilter(tl);
-    tl->hide();
+    scene.removeEventFilter(pi);
+    scene.removeEventFilter(trv);
   }
 }
 
