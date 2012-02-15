@@ -46,7 +46,7 @@ qt4_wrap_ui( DT_UI_FILES src/Delaunay_triangulation_2.ui )
 qt4_add_resources ( DT_RESOURCE_FILES src/Delaunay_triangulation_2.qrc )
 
 # use the Qt MOC preprocessor on classes that derives from QObject
-qt4_generate_moc( "src/Delaunay_triangulation_2.cpp" "${CMAKE_CURRENT_BINARY_DIR}/Delaunay_triangulation_2.moc" )
+qt4_generate_moc( "src/Delaunay_triangulation_2.hh" "${CMAKE_CURRENT_BINARY_DIR}/Delaunay_triangulation_2.moc" )
 
 # The executable itself.
 add_executable  ( voisins src/Delaunay_triangulation_2.cpp ${CMAKE_CURRENT_BINARY_DIR}/Delaunay_triangulation_2.moc ${DT_UI_FILES} ${DT_RESOURCE_FILES} )
