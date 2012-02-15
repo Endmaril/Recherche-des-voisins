@@ -1,6 +1,6 @@
 
-#ifndef CGAL_QT_TRIANGULATION_MOVING_POINT
-#define CGAL_QT_TRIANGULATION_MOVING_POINT
+#ifndef CGAL_QT_NEIGHBOUR_ENUMERATION
+#define CGAL_QT_NEIGHBOUR_ENUMERATION
 
 #include <CGAL/Qt/GraphicsViewInput.h>
 #include <QGraphicsSceneMouseEvent>
@@ -150,4 +150,4 @@ NeighbourEnumeration<T>::eventFilter(QObject *obj, QEvent *event)
 } // namespace Qt
 } // namespace CGAL
 
-#endif // CGAL_QT_TRIANGULATION_MOVING_POINT
+#endif // CGAL_QT_NEIGHBOUR_ENUMERATION
