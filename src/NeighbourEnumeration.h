@@ -1,6 +1,6 @@
 
-#ifndef CGAL_QT_TRIANGULATION_MOVING_POINT
-#define CGAL_QT_TRIANGULATION_MOVING_POINT
+#ifndef CGAL_QT_NEIGHBOUR_ENUMERATION
+#define CGAL_QT_NEIGHBOUR_ENUMERATION
 
 #include <CGAL/Qt/GraphicsViewInput.h>
 #include <QGraphicsSceneMouseEvent>
@@ -42,4 +42,5 @@ protected:
 
 }
 }
-#endif // CGAL_QT_TRIANGULATION_MOVING_POINT
+
+#endif CGAL_QT_NEIGHBOUR_ENUMERATION
