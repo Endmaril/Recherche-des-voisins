@@ -205,6 +205,11 @@ MainWindow::on_actionClear_triggered()
 void
 MainWindow::on_actionInsertRandomPoints_triggered()
 {
+  CGAL::Color randomColors[] = {
+      CGAL::GREEN,
+      CGAL::BLUE,
+      CGAL::RED,
+  };
   QRectF rect = CGAL::Qt::viewportsBbox(&scene);
   CGAL::Qt::Converter<K> convert;  
   Iso_rectangle_2 isor = convert(rect);
@@ -231,7 +236,12 @@ MainWindow::on_actionInsertRandomPoints_triggered()
   for(int i = 0; i < number_of_points; ++i){
     points.push_back(*pg++);
   }
-  dt.insert(points.begin(), points.end());
+  for(std::vector<Point_2>::iterator it = points.begin(); it != points.end(); it++)
+  {
+      Delaunay::Vertex_handle vh = dt.insert(*it);
+      int c = rand() % (sizeof(randomColors) / sizeof(randomColors[0]));
+      vh->info().color = randomColors[c];
+  }
   // default cursor
   QApplication::restoreOverrideCursor();
   emit(changed());
