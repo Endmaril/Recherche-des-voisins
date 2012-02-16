@@ -186,14 +186,23 @@ TriangulationGraphicsColoredItem<T>::paintVertices(QPainter *painter)
     for(typename T::Finite_vertices_iterator it = t->finite_vertices_begin();
         it != t->finite_vertices_end();
         it++){
-      CGAL::Color cgalColor = it->info();
+      CGAL::Color cgalColor = it->info().color;
       ::QColor qColor(cgalColor.red(), cgalColor.green(), cgalColor.blue());
       setVerticesPen(QPen(qColor, 6, ::Qt::SolidLine, ::Qt::RoundCap, ::Qt::RoundJoin));
       painter->setPen(verticesPen());
 
       QPointF point = matrix.map(convert(it->point()));
       painter->drawPoint(point);
-      painter->drawText(point, "42");
+
+      if(it->info().order >= 0)
+      {
+          setVerticesPen(QPen(::Qt::black, 6, ::Qt::SolidLine, ::Qt::RoundCap, ::Qt::RoundJoin));
+          painter->setPen(verticesPen());
+
+          std::stringstream ss;
+          ss << it->info().order;
+          painter->drawText(point, ss.str().c_str());
+      }
     }
   }
 }
@@ -278,8 +287,8 @@ TriangulationGraphicsColoredItem<T>::updateBoundingBox()
   }
   bounding_rect = QRectF(bb.xmin() - 20,
                          bb.ymin() - 20,
-                         bb.xmax()-bb.xmin() + 20,
-                         bb.ymax()-bb.ymin() + 20);
+                         bb.xmax()-bb.xmin() + 40,
+                         bb.ymax()-bb.ymin() + 40);
 }
 
 

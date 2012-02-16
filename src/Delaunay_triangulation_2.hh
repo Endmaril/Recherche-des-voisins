@@ -41,11 +41,22 @@
 //~ }
 //~ }
 
+struct VertexInfo
+{
+    CGAL::Color color;
+    int order;
+
+    VertexInfo()
+        : order(-1), color(CGAL::GREEN)
+    {
+    }
+};
+
 typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
 typedef K::Point_2 Point_2;
 typedef K::Iso_rectangle_2 Iso_rectangle_2;
 
-typedef CGAL::Triangulation_vertex_base_with_info_2<CGAL::Color, K> Vb;
+typedef CGAL::Triangulation_vertex_base_with_info_2<VertexInfo, K> Vb;
 typedef CGAL::Triangulation_data_structure_2<Vb> Tds;
 typedef CGAL::Delaunay_triangulation_2<K, Tds> Delaunay;
 

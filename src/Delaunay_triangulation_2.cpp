@@ -114,7 +114,7 @@ MainWindow::processInput(CGAL::Object o)
   if(CGAL::assign(p, o)){
     Delaunay::Vertex_handle vh = dt.insert(p);
 
-    vh->info() = selectedColor;
+    vh->info().color = selectedColor;
   }
   emit(changed());
 }
@@ -190,7 +190,7 @@ MainWindow::on_actionSelectPoint_toggled(bool checked)
   } else {
     scene.removeEventFilter(ne);
   }
-  vgi->setVisible(checked);
+  //vgi->setVisible(checked);
 }
 
 

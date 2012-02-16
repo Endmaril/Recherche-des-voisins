@@ -26,15 +26,15 @@ public:
   NeighbourEnumeration(DT  * dt_, MainWindow* parent);
 
 protected:
-  void localize_and_insert_point(QPointF qt_point);
+  //void localize_and_insert_point(QPointF qt_point);
 
+  void findNeighborVertices(ClosestNeighbour<DT>& closestEnumeration, Vertex_handle vhOrigin);
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
   void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
   bool eventFilter(QObject *obj, QEvent *event);
 
   DT * dt;
-  Vertex_handle vh;
   bool movePointToInsert;
   bool insertedPoint;
   MainWindow* pMainWindow;
@@ -43,4 +43,4 @@ protected:
 }
 }
 
-#endif CGAL_QT_NEIGHBOUR_ENUMERATION
+#endif // CGAL_QT_NEIGHBOUR_ENUMERATION

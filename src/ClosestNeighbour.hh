@@ -10,6 +10,7 @@ class ClosestNeighbour
     
     ClosestNeighbour(Vertex_handle origin) : originVertex(origin)
     {
+        allreadyInsertedPoints.insert(origin->point());
     }
     
     ClosestNeighbour()
@@ -25,8 +26,9 @@ class ClosestNeighbour
     {
         Point origin = originVertex -> point();
         Point pointToAdd = vertexToAdd -> point();
-        double distance = (pointToAdd - originVertex).squared_length();
-        if(allreadyInsertedPoints.find(vertexToAdd->point()) != allreadyInsertedPoints.end())
+        double distance = (pointToAdd - origin).squared_length();
+
+        if(allreadyInsertedPoints.count(vertexToAdd->point()) > 0)
         {
             return;
         }
@@ -34,10 +36,14 @@ class ClosestNeighbour
         allreadyInsertedPoints.insert(pointToAdd);
     }
     
-    Vertex_handle getNextNeighbour()
+    bool getNextNeighbour(Vertex_handle& nearNeighbour)
     {
-        Vertex_handle nearNeighbour = untreatedNeighbours.begin()->second();
-        return nearNeighbour;
+        if(untreatedNeighbours.empty())
+            return false;
+
+        nearNeighbour = untreatedNeighbours.begin()->second;
+        untreatedNeighbours.erase(untreatedNeighbours.begin());
+        return true;
     }
     
     private:
