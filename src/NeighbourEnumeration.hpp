@@ -59,9 +59,10 @@ template <typename T>
 void 
 NeighbourEnumeration<T>::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+  if(dt->number_of_vertices() < 3)
+      return;
   typename T::Point p = typename T::Point(event->scenePos().x(), event->scenePos().y());
   Vertex_handle vh = dt->nearest_vertex(p);
-  std::cout << vh->point() << std::endl;
   ClosestNeighbour<T> closestEnumeration(vh);
   bool res;
 
