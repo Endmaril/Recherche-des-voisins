@@ -26,8 +26,6 @@ public:
   NeighbourEnumeration(DT  * dt_, MainWindow* parent);
 
 protected:
-  //void localize_and_insert_point(QPointF qt_point);
-
   void findNeighborVertices(ClosestNeighbour<DT>& closestEnumeration, Vertex_handle vhOrigin);
   void mousePressEvent(QGraphicsSceneMouseEvent *event);
   void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
